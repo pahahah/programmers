@@ -11,22 +11,22 @@ public class 신고결과받기 {
         HashMap<String, ArrayList<String>> reportList = new HashMap<>();
         String[] distReport = Arrays.stream(report).distinct().toArray(String[]::new);
         for (String rep : distReport){
-            String reporter = rep.substring(0,rep.lastIndexOf(" "));
-            String reportedId = rep.substring(rep.lastIndexOf(" ") + 1);
-            if(reportedNumber.containsKey(reportedId)){
-                reportedNumber.replace(reportedId, reportedNumber.get(reportedId) + 1);
+            String notifier = rep.trim().split(" ")[0];
+            String notified = rep.trim().split(" ")[1];
+            if(reportedNumber.containsKey(notified)){
+                reportedNumber.replace(notified, reportedNumber.get(notified) + 1);
             }else {
-                reportedNumber.put(reportedId, 1);
+                reportedNumber.put(notified, 1);
             }
 
-            if(reportList.containsKey(reporter)){
-                ArrayList<String> result = reportList.get(reporter);
-                result.add(reportedId);
-                reportList.replace(reporter, result);
+            if(reportList.containsKey(notifier)){
+                ArrayList<String> result = reportList.get(notifier);
+                result.add(notified);
+                reportList.replace(notifier, result);
             }else {
                 ArrayList<String> result = new ArrayList<>();
-                result.add(reportedId);
-                reportList.put(reporter, result);
+                result.add(notified);
+                reportList.put(notifier, result);
             }
         }
         int size = 0;
